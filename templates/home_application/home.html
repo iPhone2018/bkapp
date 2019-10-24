@@ -1,25 +1,322 @@
-<%inherit file="/base.html"/>
+<!DOCTYPE html>
+<html>
 
-<%block name="content">
-    <div class="home-page">
-    	<div class="page-arrow">
-			<div class="container">
-				<!-- 蓝鲸智云开发框架说明  Start -->
-				<div class="tc title-word">
-					<p>欢迎使用蓝鲸智云集成平台</p>
-				</div>
-				<div class="tc title-word-second">
-					<p>蓝鲸智云开发框架<small class="pl10">助力你的自动化</small></p>
-				</div>
-				<hr class="cutting-line">
-				<div class="tc frame-explain-text">
-					<p>您现在打开的应用是由蓝鲸智云示例代码生成的，该示例代码称为“APP开发框架”。</p>
-					<p>蓝鲸智云集成平台（PaaS）提供了完善的前后台开发框架、调度引擎、公共组件等模块，帮助业务的产品和技术人员快速构建低成本、免运维的支撑工具和运营系统。</p>
-					<p>若想体验快速开发应用的功能，请前往<a class="developer-center" href="${BK_PAAS_HOST}" target="_blank">“开发者中心”</a>。</p>
-				</div>
-				<!-- 蓝鲸智云开发框架说明  End -->
-			</div>
-		</div>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
+    <!-- Bootstrap css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- kendo ui css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <!--蓝鲸提供的公用样式库 -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <!-- 数据埋点统计 -->
+    <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
+    <script src="${STATIC_URL}js/csrftoken.js"></script>
+</head>
+
+<body class="bg-white" data-bg-color="bg-white">
+    <div class="king-page-box">
+        <div class="king-layout1-header">
+            <nav role="navigation" class="navbar navbar-default king-horizontal-nav2    f14 ">
+                <div class="container " style="width:100%;overflow:hidden;">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed navbar-toggle-sm" data-toggle="collapse" data-target="#king-horizontal-nav2-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="javascript:;">
+                            <img src="https://magicbox.bk.tencent.com/static_api/v3/bk/images/logo3.png" alt="" class="logo"> </a>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-responsive-collapse" id="king-horizontal-nav2-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="king-navbar-active"><a href="javascript:void(0);">乘法运算器</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="javascript:;">
+                                    <span>管理者</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="king-layout2-main mt15" style="width:960px;">
+            <div class="king-block king-block-bordered king-block-themed mb0">
+                <div class="king-block-header king-info">
+                    <ul class="king-block-options">
+                        <li>
+                            <!-- <button type="button"><i class="fa fa-cog"></i></button> -->
+                        </li>
+                    </ul>
+                    <h3 class="king-block-title">乘法运算</h3>
+                </div>
+                <div class="king-block-content">
+                    <form class="form-horizontal">
+                        <div class="form-group clearfix ">
+                            <label class="col-sm-3 control-label bk-lh30 pt0">参数：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control bk-valign-top" id="mut_one" placeholder="请输入乘数"> </div>
+                        </div>
+                        <div class="form-group clearfix ">
+                            <label class="col-sm-3 control-label bk-lh30 pt0">参数：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control bk-valign-top" id="mut_two" placeholder="请输入被乘数"> </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button type="button" class="king-btn mr10  king-success" id="butn_yes">确定</button>
+                                <button type="button" class="king-btn king-default " id="butn_no">重置</button>
+                            </div>
+                        </div>
+                        <section>
+                            <div class="form-group clearfix">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="bk-horizontal-line"></div>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="king-widget1  m0">
+                            <div class="king-widget2-content p25">
+                                <div class="king-counter king-counter-lg">
+                                    <span class="king-counter-number" id="result_mut"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 设置面板Start -->
+                        <!-- 设置面板End -->
+                    </form>
+                </div>
+            </div>
+            <div class="king-block king-block-bordered king-block-themed mb0">
+                <div class="king-block-header king-info">
+                    <ul class="king-block-options">
+                        <li>
+                            <!-- <button type="button"><i class="fa fa-cog"></i></button> -->
+                        </li>
+                    </ul>
+                    <h3 class="king-block-title">结果展示</h3>
+                </div>
+                <div class="king-block-content">
+                    <table class="table mb0 pr15 ranger-box2  ">
+                        <thead>
+                            <tr>
+                                <th style="width: 70px;">id</th>
+                                <th style="width: 15%;">乘数</th>
+                                <th style="width: 15%;">被乘数</th>
+                                <th style="width: 15%;">计算结果</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Jtems">
+                            % for mult in mults:
+                                <tr>
+                                    <td style="width: 70px;">${mult.id}</td>
+                                    <td style="width: 15%;">${mult.mult_one}</td>
+                                    <td style="width: 15%;">${mult.mult_two}</td>
+                                    <td style="width: 15%;">${mult.mult_result}</td>
+                                    <td>
+                                        <button class="btn btn-xs btn-success"> <i class="glyphicon glyphicon-ok"></i> </button>
+                                        <button class="btn btn-xs btn-warning"> <i class="glyphicon glyphicon-edit"></i> </button>
+                                        <button class="btn btn-xs btn-danger"> <i class="glyphicon glyphicon-remove"></i> </button>
+                                    </td>
+                                </tr>
+                            % endfor
+                        </tbody>
+                    </table>
+                    <template id="header_tpl_15717304705222">
+                        <tr>
+                            <th style="width: 70px;">#index#</th>
+                            <th style="width: 15%;">#name#</th>
+                            <th style="width: 15%;">#position#</th>
+                            <th style="width: 15%;">#date#</th>
+                            <th style="width: 15%;">#type#</th>
+                            <th>操作</th>
+                        </tr>
+                    </template>
+                    <template id="tpl_15717304705222">
+                        <tr>
+                            <td style="width: 70px;">#index#</td>
+                            <td style="width: 15%;">#name#</td>
+                            <td style="width: 15%;">#position#</td>
+                            <td style="width: 15%;">#date#</td>
+                            <td style="width: 15%;">#type#</td>
+                            <td>
+                                <button class="btn btn-xs btn-success"> <i class="glyphicon glyphicon-ok"></i> </button>
+                                <button class="btn btn-xs btn-warning"> <i class="glyphicon glyphicon-edit"></i> </button>
+                                <button class="btn btn-xs btn-danger"> <i class="glyphicon glyphicon-remove"></i> </button>
+                            </td>
+                        </tr>
+                    </template>
+                    <!-- 设置面板End -->
+                </div>
+            </div>
+        </div>
     </div>
-</%block>
+    <script>
+        $(function () {
+            $("#butn_yes").click(function () {
+                var mult_one = $("#mut_one").val();
+                var mult_two = $("#mut_two").val();
+                $.post("${SITE_URL}add_datas/", {
+                    'mult_one': mult_one,
+                    'mult_two': mult_two
+                }, function (res) {
+                    if(res.result){
+                        $("#result_mut").html(res.result_mut);
 
+                        var $Jtems = $("#Jtems");
+                        $Jtems.empty();
+                        for(var i = 0,len = res.mults.length; i < len; i++){
+                            var $trs = $("<tr style='width: 70px;'></tr>");
+                            $trs.append("<td style=''>" + res.mults[i].id + "</td>");
+                            $trs.append("<td style=''>" + res.mults[i].mult_one + "</td>");
+                            $trs.append("<td style=''>" + res.mults[i].mult_two + "</td>");
+                            $trs.append("<td style=''>" + res.mults[i].mult_result + "</td>");
+                            var $tds = $trs.append("<td></td>");
+                            $tds.append("<button class='btn btn-xs btn-success'> <i class='glyphicon glyphicon-ok'></i> </button>");
+                            $tds.append("<button class='btn btn-xs btn-warning'> <i class='glyphicon glyphicon-edit'></i> </button>");
+                            $tds.append("<button class='btn btn-xs btn-danger'> <i class='glyphicon glyphicon-remove'></i> </button>");
+                            $trs.appendTo($Jtems);
+                        }
+                    }
+                }, "json");
+
+            });
+
+            $("#Jtems").on("click", ".btn-danger", function () {
+                var id = 0;
+                if($(this).parent().children().length === 8){
+                    id = $(this).parent().children()[0].innerHTML
+                }else if ($(this).parent().children().length === 3) {
+                    id = $(this).parent().parent().children()[0].innerHTML
+                }
+                $.post("${SITE_URL}delete_datas/", {
+                    'id': id
+                }, function (res) {
+
+                    if(res.result){
+                        // $(this).parent().parent().remove();
+
+                        window.location.reload();
+                    }else{
+                        console.log('删除失败')
+                    }
+                });
+            });
+
+            /*$("#Jtems tr td .btn-danger").click(function () {
+                // 获取一个tr下所有的td标签
+                // for(var i=0; i< $(this).parent().parent().children().length; i++){
+                //     if (i < 4){
+                //        console.log($(this).parent().parent().children().eq(i).text())
+                //    }
+
+                //}
+
+                $.post("${SITE_URL}delete_datas/", {
+                    'id': $(this).parent().parent().children()[0].innerHTML
+                }, function (res) {
+
+                    if(res.result){
+                        // $(this).parent().parent().remove();
+
+                        window.location.reload();
+                    }else{
+                        console.log('删除失败')
+                    }
+                });
+
+            })*/
+
+            $("#Jtems").on("click", ".btn-warning", function () {
+                if(!$(this).is(".input")){
+                    for(var i=0; i< $(this).parent().parent().children().length; i++){
+                        if(i === 1 || i === 2 || i ===3){
+                            if($(this).parent().children().length === 8){
+                                var values = $(this).parent().children().eq(i).text();
+
+                                $(this).parent().children().eq(i).addClass('input').html('<input type="text" value="'+ values +'" />').find("input").focus().blur((function (i) {
+
+                                    $(this).parent().children().eq(i).removeClass('input').html($(this).val() || 0);
+
+                                    
+                                })(i))
+                            }else if ($(this).parent().children().length === 3) {
+                                values = $(this).parent().parent().children().eq(i).text();
+                                $(this).parent().parent().children().eq(i).addClass('input').html('<input type="text" value="'+ values +'" />').find("input").focus().blur((function (i) {
+                                    $(this).parent().parent().children().eq(i).removeClass('input').html($(this).val() || 0);
+                                })(i))
+                            }
+
+
+                        }
+                    }
+                }
+
+                $("#Jtems").on("click", ".btn-success", function () {
+                var id = 0;
+                var mult_one = 0;
+                var mult_two = 0;
+                var mult_result = 0;
+
+
+                if($(this).parent().children().length === 8){
+                    //console.log($(this).parent().children());
+                    console.log($(this).parent().children().eq(1).val());
+
+                    id = $(this).parent().children().eq(0).text();
+                    mult_one = $(this).parent().children().eq(1);
+                    mult_two = $(this).parent().children().eq(2);
+                    mult_result = $(this).parent().children().eq(3);
+                }else if ($(this).parent().children().length === 3) {
+                    console.log($(this).parent().parent().children().value);
+                    // console.log($(this).parent().parent().children().eq(1).val());
+
+                    id = $(this).parent().parent().children().eq(0).text();
+                    mult_one = $(this).parent().parent().children().eq(1);
+                    mult_two = $(this).parent().parent().children().eq(2);
+                    mult_result = $(this).parent().parent().children().eq(3);
+                }
+                /* $.post("${SITE_URL}update_datas/", {
+                    'id': id,
+                    'mult_one': mult_one,
+                    'mult_two': mult_two,
+                    'mult_result': mult_result
+                }, function (res) {
+                    console.log('11')
+                }) */
+
+            })
+
+            });
+
+
+
+        });
+    </script>
+</body>
+
+</html>
