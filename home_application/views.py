@@ -13,8 +13,8 @@ from django.http import HttpResponse
 from common.mymako import render_mako_context
 
 
-def index(request):
-    return HttpResponse('Hello')
+def helloworld(request):
+    return HttpResponse('Hello World')
 
 
 def home(request):
