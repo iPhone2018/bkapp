@@ -10,11 +10,19 @@ See the License for the specific language governing permissions and limitations 
 """
 from django.http import HttpResponse
 
-from common.mymako import render_mako_context
+from common.mymako import render_mako_context, render_json
 
 
 def helloworld(request):
     return HttpResponse('Hello World')
+
+
+def test(request):
+    res = {
+        "username": request.user.username,
+        "result": "ok"
+    }
+    return render_json(res)
 
 
 def home(request):
@@ -28,6 +36,7 @@ def dev_guide(request):
     """
     开发指引
     """
+
     return render_mako_context(request, '/home_application/dev_guide.html')
 
 
