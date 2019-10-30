@@ -112,29 +112,30 @@
             <thead>
             <tr>
                 <th style="width: 70px;">主机IP</th>
-                <th style="width: 16%;">主机名称</th>
-                <th style="width: 16%;">所属业务</th>
-                <th style="width: 16%;">云区域</th>
-                <th style="width: 16%;">操作系统类型</th>
-                <th style="width: 16%;">备注</th>
+                <th style="width: 15%;">主机名称</th>
+                <th style="width: 15%;">所属业务</th>
+                <th style="width: 15%;">云区域</th>
+                <th style="width: 15%;">操作系统类型</th>
+                <th style="width: 15%;">备注</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody id="tTems">
-            <tr>
                 %for host in host_list:
-                <td style="width: 70px;">${host['ip']}</td>
-                <td style="width: 16%;">${host['name']}</td>
-                <td style="width: 16%;">${host['biz']}</td>
-                <td style="width: 16%;">${host['cloud_area']}</td>
-                <td style="width: 16%;">${host['type']}</td>
-                <td style="width: 16%;">${host['mark']}</td>
-                <td>
-                    <a href="#">查看性能</a>
-                    <a href="#">删除</a>
-                </td>
+                    <tr id= "${host['id']}">
+                        <td style="width: 70px;">${host['ip']}</td>
+                        <td style="width: 15%;">${host['name']}</td>
+                        <td style="width: 15%;">${host['biz']}</td>
+                        <td style="width: 15%;">${host['cloud_area']}</td>
+                        <td style="width: 15%;">${host['type']}</td>
+                        <td style="width: 15%;">${host['mark']}</td>
+                        <td>
+                            <a href="javascript:void(0);" class="edit" style="position:relative;width:30px; margin-left:-6px;">修改</a>
+                            <a href="javascript:void(0);" class="view" style="position:relative;width:30px; margin-left:0;">查看性能</a>
+                            <a href="javascript:void(0);" class="del" style="position:relative;width:30px; margin-left:0;">删除</a>
+                        </td>
+                    </tr>
                 %endfor
-            </tr>
             </tbody>
         </table>
         <!-- 设置面板End -->
@@ -156,7 +157,7 @@
                         <label class="bk-label">选择业务</label>
                         <div class="bk-form-content">
                             <select id="biz_select" class="bk-form-select" style="width:150px;">
-                                <option></option>
+                                <option value=0></option>
                             </select>
                         </div>
                     </div>
@@ -165,7 +166,7 @@
                         <label class="bk-label">选择主机</label>
                         <div class="bk-form-content">
                             <select name="" id="host_select" class="bk-form-select" style="width:150px;">
-                                <option></option>
+                                <option value=0></option>
                             </select>
                         </div>
                     </div>
@@ -174,6 +175,54 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="addHostBtn">保存</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 修改模态框 -->
+<div class="modal fade" id="changeModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden='true' data-backdrop='static'>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">修改</h4>
+            </div>
+            <div class="modal-body">
+                <form class="bk-form">
+                    <div class="bk-form-item">
+                        <label class="bk-label">选择业务</label>
+                        <div class="bk-form-content">
+                            <select id="biz_select_edit" class="bk-form-select" style="width:150px;">
+                                <option value=0></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bk-form-item">
+                        <label class="bk-label">选择主机</label>
+                        <div class="bk-form-content">
+                            <select name="" id="host_select_edit" class="bk-form-select" style="width:150px;">
+                                <option value=0></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bk-form-item">
+                        <label class="bk-label">备注</label>
+                        <div class="bk-form-content">
+                            <div class="bk-form-content" style="width: 300px">
+                            <textarea class="form-control" rows="3" id="mark_textarea"></textarea>
+                        </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="editHostBtn">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>
@@ -196,16 +245,17 @@
         if (hosts) {
             $("#tTems").empty();
             for (let i in hosts) {
-                var $trs = $("<tr></tr>");
+                var $trs = $("<tr id=" + hosts[i]['id'] + "></tr>");
                 $trs.append($("<td style='width: 70px;'>" + hosts[i]['ip'] + "</td>"));
-                $trs.append($("<td style='width: 16%;'>" + hosts[i]['name'] + "</td>"));
-                $trs.append($("<td style='width: 16%;'>" + hosts[i]['biz'] + "</td>"));
-                $trs.append($("<td style='width: 16%;'>" + hosts[i]['cloud_area'] + "</td>"));
-                $trs.append($("<td style='width: 16%;'>" + hosts[i]['type'] + "</td>"));
-                $trs.append($("<td style='width: 16%;'>" + hosts[i]['mark'] + "</td>"));
-                var $tds = $("<td style='width: 16%;'></td>");
-                $tds.append("<a href='#'>查看性能</a>");
-                $tds.append("<a href='#'>删除</a>");
+                $trs.append($("<td style='width: 15%;'>" + hosts[i]['name'] + "</td>"));
+                $trs.append($("<td style='width: 15%;'>" + hosts[i]['biz'] + "</td>"));
+                $trs.append($("<td style='width: 15%;'>" + hosts[i]['cloud_area'] + "</td>"));
+                $trs.append($("<td style='width: 15%;'>" + hosts[i]['type'] + "</td>"));
+                $trs.append($("<td style='width: 15%;'>" + hosts[i]['mark'] + "</td>"));
+                var $tds = $("<td style='width: 15%;'></td>");
+                $tds.append("<a href='javascript:void(0);' class='edit'>修改</a>");
+                $tds.append("<a href='javascript:void(0);' class='view'>查看性能</a>");
+                $tds.append("<a href='javascript:void(0);' class='del'>删除</a>");
                 $trs.append($tds);
                 $trs.appendTo($("#tTems"));
             }
@@ -219,7 +269,7 @@
                 $("#biz_select").empty();
                 var bizs = res.data;
                 for (let i in bizs){
-                    $("#biz_select").append("<option>" + bizs[i]['bk_biz_name'] +"</option>");
+                    $("#biz_select").append("<option " + "value=" + bizs[i]['bk_biz_id'] + ">" + bizs[i]['bk_biz_name'] +"</option>");
                 }
             }else{
                 alert(res.message)
@@ -228,24 +278,87 @@
     }
 
     function get_host_all(){
-
-        $.get("${SITE_URL}get_biz_all/", {}, function (res) {
+        var bk_biz_id = $("#biz_select option").val();
+        if (bk_biz_id){
+            $.get("${SITE_URL}get_host_all/", {'bk_biz_id': bk_biz_id}, function (res) {
             if(res.result){
                 $("#host_select").empty();
                 var hosts = res.data;
-                for (let i in hosts){
-                    $("#biz_select").append("<option>" + hosts[i]['bk_biz_name'] +"</option>");
+                if (hosts){
+                    for (let i in hosts){
+                        $("#host_select").append("<option>" + hosts[i]['bk_host_innerip'] +"</option>");
+                    }
                 }
+
+            }else{
+                alert(res.message)
+            }
+        })
+        }
+
+    }
+
+    function add_host_btn(){
+        var bk_biz_id = $("#biz_select").find("option:selected").val();
+        var host_ip = $("#host_select").find("option:selected").text();
+        $.post("${SITE_URL}add_host/", {"bk_biz_id": bk_biz_id, "host_ip": host_ip}, function (res) {
+            if(res.result){
+                window.location.reload()
+
             }else{
                 alert(res.message)
             }
         })
     }
 
-    $(function () {
-        $("#biz_select").on('click', get_biz_all);
-        $("#host_select").on('click', get_host_all);
+    function del_host(){
+        var id = $(this).parent().parent().attr("id");
+        $.post("${SITE_URL}del_host/", {
+            'id': id
+        }, function (res) {
+            if (res.result){
+                // $(this).parent().parent().empty()
+                window.location.reload()
+            }else{
+                alert(res.message)
+            }
+        });
+    }
 
+    function edit_host(){
+        $("#changeModel").modal("show");
+        $("#biz_select_edit option").text($(this).parent().parent().children().eq(2).text());
+        $("#host_select_edit option").text($(this).parent().parent().children().eq(0).text());
+        $("#mark_textarea").val($(this).parent().parent().children().eq(5).text());
+    }
+
+    function edit_host_btn(){
+        $.post("${SITE_URL}edit_host/", {
+            'bk_biz_name': $("#biz_select_edit option").text(),
+            'ip': $("#host_select_edit option").text(),
+            'mark': $("#mark_textarea").val()
+        }, function (res) {
+            if (res.result){
+                window.location.reload()
+            }else{
+                alert(res.message)
+            }
+        })
+    }
+
+    function res_home(){
+        var host_id = $(this).parent().parent().attr("id");
+        window.open("http://dev.bk.com:8000/resource/2/" + host_id + "/");
+    }
+
+    $(function () {
+        $("#biz_select").on('click', get_biz_all());
+        $("#host_select").on('click', get_host_all());
+        $("#addHostBtn").on('click', add_host_btn);
+        $("#tTems").on('click', '.del', del_host);
+        $("#tTems").on('click', '.edit', edit_host);
+        $("#editHostBtn").on('click', edit_host_btn);
+        $("#tTems").on('click', '.view', res_home);
     })
 </script>
 </body>
