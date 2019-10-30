@@ -25,4 +25,4 @@ class LoadCondition(models.Model):
     # 负载数据
     load_data = models.CharField(max_length=100)
     # 记录时间
-    time = models.CharField(max_length=255, default=datetime.datetime.now())
+    time = models.DateTimeField(max_length=255, default=datetime.datetime.now())

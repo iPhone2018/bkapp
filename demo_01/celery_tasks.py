@@ -15,6 +15,7 @@ celery 任务示例
 """
 import base64
 import datetime
+import time
 
 from celery import task
 from celery.schedules import crontab
@@ -63,7 +64,6 @@ def execute_task():
             ]
         }
         res = client.cc.search_host(kw)
-
         bk_cloud_id = res['data']['info'][0]['host']['bk_cloud_id'][0]['bk_inst_id']
 
         ip_list.append({'bk_cloud_id': bk_cloud_id, 'ip': host.ip})
@@ -85,11 +85,16 @@ def execute_task():
         'bk_biz_id': 2,
         'job_instance_id': new_res['data']['job_instance_id']
     }
+    time.sleep(2)
     res_ = client.job.get_job_instance_log(kw_)
+
     Load_list = list()
+
     if res_['data'][0]['status'] == 3:
         for ip_log in res_['data'][0]['step_results'][0]['ip_logs']:
             ip = ip_log['ip']
             load_data = ip_log['log_content'].replace("\n", "").split(" ")[1]
+
             Load_list.append(LoadCondition(ip=ip, load_data=load_data, time=now_time))
+
         LoadCondition.objects.bulk_create(Load_list)

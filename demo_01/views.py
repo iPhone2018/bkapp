@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from common.mymako import render_mako_context, render_json
 
 from blueking.component.shortcuts import get_client_by_request
+from demo_01.celery_tasks import execute_task
 
 from demo_01.models import Host
 
