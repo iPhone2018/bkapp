@@ -16,10 +16,6 @@ from common.mymako import render_mako_context, render_json
 from home_application.models import MultRecord
 
 
-# def index(request):
-#     return HttpResponse('Hello')
-
-
 def home(request):
     """
     首页
